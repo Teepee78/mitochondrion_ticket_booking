@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 
 // Import routes
 import moviesRouter from "./routes/movies.routes";
+import usersRouter from "./routes/users.routes";
 
 // Load environment variables
 dotenv.config();
@@ -37,6 +38,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // routes
 app.use("/movies", moviesRouter);
+app.use("/users", usersRouter);
 
 app.get("/", (req, res) => {
 	return res.json({ status: "OK" });

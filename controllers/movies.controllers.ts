@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import Movie from "../models/movies.models";
-import { I_MovieDocument } from "../models";
 
 /**
  * Create a new movie in the database
@@ -13,8 +12,9 @@ export async function createMovie(req: Request, res: Response) {
 		await movie.save();
 
 		return res.status(201).json(movie);
-	} catch (err) {
+	} catch (err: any) {
 		console.log(err);
+		return res.status(500).json({ message: err.message });
 	}
 }
 
@@ -27,8 +27,9 @@ export async function getMovies(req: Request, res: Response) {
 		const movies = await Movie.find();
 
 		return res.json({ length: movies.length, movies: movies });
-	} catch (err) {
+	} catch (err: any) {
 		console.log(err);
+		return res.status(500).json({ message: err.message });
 	}
 }
 
@@ -42,7 +43,8 @@ export async function getMovieById(req: Request, res: Response) {
 		const movie = await Movie.findById(id);
 
 		return res.json(movie)
-	} catch (err) {
+	} catch (err: any) {
 		console.log(err);
+		return res.status(500).json({ message: err.message });
 	}
 }

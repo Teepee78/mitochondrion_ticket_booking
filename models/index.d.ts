@@ -14,7 +14,7 @@ export interface I_TicketDocument {
 }
 
 export interface I_UserDocument {
-	name: string;
+	name?: string;
 	email: string;
 	password: string;
 	tickets: Array<Types.ObjectId>;

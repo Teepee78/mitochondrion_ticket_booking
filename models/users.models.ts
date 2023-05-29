@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { I_UserDocument } from ".";
+import bcrypt from "bcryptjs";
 
 const UserSchema = new mongoose.Schema<I_UserDocument>(
 	{
@@ -20,5 +21,18 @@ const UserSchema = new mongoose.Schema<I_UserDocument>(
 
 	{ timestamps: true, versionKey: false }
 );
+
+// bcrypt salt rounds
+const saltRounds = 8;
+
+// mongoose middleware to alter password before saving
+UserSchema.pre("save", async function (next) {
+	const user = this;
+
+	if (user.isModified("password")) {
+		user.password = await bcrypt.hash(user.password, saltRounds);
+	}
+	next();
+});
 
 export default mongoose.model<I_UserDocument>("User", UserSchema);
