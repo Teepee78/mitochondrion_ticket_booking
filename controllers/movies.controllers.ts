@@ -44,7 +44,7 @@ export async function getMovieById(req: Request, res: Response) {
 	try {
 		const { id } = req.params;
 
-		const movie = await Movie.findById(id);
+		const movie = await Movie.findById(id).populate("tickets");
 
 		return res.json(movie);
 	} catch (err: any) {
