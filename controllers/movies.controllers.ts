@@ -6,9 +6,9 @@ import Movie from "../models/movies.models";
  */
 export async function createMovie(req: Request, res: Response) {
 	try {
-		const { title, tickets } = req.body;
+		const { title, capacity } = req.body;
 
-		const movie = new Movie({ title, numberOfTickets: tickets });
+		const movie = new Movie({ title, capacity });
 		await movie.save();
 
 		return res.status(201).json(movie);

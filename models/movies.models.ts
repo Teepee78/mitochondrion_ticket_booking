@@ -7,7 +7,7 @@ const MovieSchema = new mongoose.Schema<I_MovieDocument>(
 			type: String,
 			required: true,
 		},
-		numberOfTickets: {
+		capacity: {
 			type: Number,
 			required: true,
 		},
@@ -21,5 +21,15 @@ const MovieSchema = new mongoose.Schema<I_MovieDocument>(
 
 	{ timestamps: true, versionKey: false }
 );
+
+// mongoose middleware to set tickets to capacity before saving
+MovieSchema.pre("save", async function (next) {
+	const movie = this;
+
+	if (movie.isModified("capacity")) {
+		movie.availableTickets = movie.capacity - movie.tickets.length;
+	}
+	next();
+});
 
 export default mongoose.model<I_MovieDocument>("Movie", MovieSchema);

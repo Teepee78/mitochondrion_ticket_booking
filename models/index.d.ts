@@ -2,7 +2,7 @@ import { Types } from "mongoose";
 
 export interface I_MovieDocument {
 	title: string;
-	numberOfTickets: number;
+	capacity: number;
 	availableTickets: number;
 	tickets: Array<Types.ObjectId>;
 }
