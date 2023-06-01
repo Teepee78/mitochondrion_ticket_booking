@@ -1,5 +1,4 @@
 const request = require("supertest");
-const app = require("../../dist/index.js");
 const { server } = require("../../dist/index.js");
 const assert = require("chai").assert;
 const expect = require("chai").expect;
@@ -10,7 +9,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 describe("users.routes.ts", () => {
-	describe("POST /signup", () => {
+	describe("POST /users/signup", () => {
 		it("should return 401 if user exists", (done) => {
 			sinon.replace(
 				usersServices,
@@ -96,7 +95,7 @@ describe("users.routes.ts", () => {
 		});
 	});
 
-	describe("POST /login", () => {
+	describe("POST /users/login", () => {
 		it("should return 404 if user doesn't exist", (done) => {
 			sinon.replace(
 				usersServices,

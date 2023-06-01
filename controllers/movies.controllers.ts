@@ -45,9 +45,14 @@ export async function getMovieById(req: Request, res: Response) {
 	try {
 		const { id } = req.params;
 
-		const movie = await moviesServices.getMovieById(id);
-
-		return res.json(movie);
+		try {
+			const movie = await moviesServices.getMovieById(id);
+			return res.json(movie);
+		} catch (err) {
+			return res
+				.status(404)
+				.json({ message: "Movie not found, try a different id" });
+		}
 	} catch (err: any) {
 		console.log(err);
 		return res.status(500).json({ message: err.message });
