@@ -9,6 +9,10 @@ Before running the API, ensure you have the following installed:
 - Node.js (version 19.0.1)
 - npm (version 9.1.3)
 
+## Live link for testing
+
+https://mitochondrion-ticket-booking.vercel.app/
+
 ## Getting Started
 
 1. Clone the repository:
