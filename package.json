@@ -7,7 +7,7 @@
     "test": "tsc; mocha test/*/*.test.js",
     "lint": "eslint . --fix",
     "build": "tsc",
-    "start": "npx nodemon ./index.ts",
+    "start": "npx nodemon ./dist/index.js",
     "dev": "npx nodemon ./index.ts"
   },
   "repository": {
