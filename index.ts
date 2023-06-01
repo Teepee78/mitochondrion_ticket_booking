@@ -44,8 +44,9 @@ app.get("/", (req, res) => {
 	return res.json({ status: "OK" });
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
 	console.log(`Listening on port: ${PORT}`);
 });
 
 export default app;
+export { server };

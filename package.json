@@ -4,9 +4,9 @@
   "description": "Ticket Booking System API using Express(Typescript)",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test/*/*.test.js",
     "lint": "eslint . --fix",
-    "build": "",
+    "build": "tsc",
     "start": "npx nodemon ./index.ts",
     "dev": "npx nodemon ./index.ts"
   },
@@ -47,7 +47,9 @@
     "@types/mocha": "^10.0.1",
     "@types/node": "^20.2.5",
     "@types/sinon": "^10.0.15",
+    "chai": "^4.3.7",
     "mocha": "^10.2.0",
-    "sinon": "^15.1.0"
+    "sinon": "^15.1.0",
+    "supertest": "^6.3.3"
   }
 }
