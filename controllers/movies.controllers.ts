@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import Movie from "../models/movies.models";
 import Ticket from "../models/tickets.models";
-import User from "../models/users.models";
 import { sem } from "..";
 import { I_TicketDocument } from "../models";
+import * as moviesServices from "../services/movies.services";
+import * as usersServices from "../services/users.services";
 
 /**
  * Create a new movie in the database
@@ -28,7 +29,7 @@ export async function createMovie(req: Request, res: Response) {
 export async function getMovies(req: Request, res: Response) {
 	try {
 		// Get movies from database
-		const movies = await Movie.find();
+		const movies = await moviesServices.getAllMovies();
 
 		return res.json({ length: movies.length, movies: movies });
 	} catch (err: any) {
@@ -44,7 +45,7 @@ export async function getMovieById(req: Request, res: Response) {
 	try {
 		const { id } = req.params;
 
-		const movie = await Movie.findById(id).populate("tickets");
+		const movie = await moviesServices.getMovieById(id);
 
 		return res.json(movie);
 	} catch (err: any) {
@@ -63,11 +64,11 @@ export async function bookMovieSeats(req: Request, res: Response) {
 		const userId = req.body.id;
 
 		// Get movie
-		const movie = await Movie.findById(movieId);
+		const movie = await moviesServices.getMovieById(movieId as string);
 		if (!movie) return res.status(404).json({ message: "Movie not found" });
 
 		// Get user
-		const user = await User.findById(userId);
+		const user = await usersServices.getUserById(userId);
 
 		// Make sure there are enough available tickets for requested seats
 		// and movie isn't sold out

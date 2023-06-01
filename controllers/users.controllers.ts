@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import _ from "lodash";
+import * as usersServices from "../services/users.services";
 
 dotenv.config();
 
@@ -15,6 +16,13 @@ const SECRET_KEY = process.env.MITOCHONDRION_JWT_SECRET as string;
 export async function createUser(req: Request, res: Response) {
 	try {
 		const { name, email, password } = req.body;
+
+		// Confirm user does not exist
+		const existingUser = await usersServices.getUserByEmail(email);
+		if (existingUser)
+			return res
+				.status(401)
+				.json({ message: `User with email: ${email} already exists` });
 
 		const user = new User({
 			name,
@@ -48,7 +56,7 @@ export async function login(req: Request, res: Response) {
 	try {
 		const { email, password } = req.body;
 
-		const user = await User.findOne({ email });
+		const user = await usersServices.getUserByEmail(email);
 		if (!user) return res.status(404).json({ message: "User not found" });
 
 		// Confirm password
