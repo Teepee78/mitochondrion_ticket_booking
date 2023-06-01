@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const movies_controllers_1 = require("../controllers/movies.controllers");
+const express_1 = require("express");
+const auth_middlewares_1 = require("../middlewares/auth.middlewares");
+const router = (0, express_1.Router)();
+router.post("", movies_controllers_1.createMovie);
+router.get("", movies_controllers_1.getMovies);
+router.get("/:id", movies_controllers_1.getMovieById);
+router.post("/book", auth_middlewares_1.auth, movies_controllers_1.bookMovieSeats);
+exports.default = router;
