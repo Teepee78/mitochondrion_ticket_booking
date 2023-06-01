@@ -15,20 +15,24 @@ export interface CustomRequest extends Request {
  */
 export const auth = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		let token = req.header("Authorization");
-
-		if (!token) {
-			token = req.cookies["Authorization"];
-
-			if (!token) {
-				throw new Error("Token missing");
-			}
-		}
-
-		const decoded = jwt.verify(token, SECRET_KEY) as JwtPayload;
-		req.body.id = decoded._id;
-
+		// disable authetication middleware so that testing is easy
+		req.body.id = "6473efc351a3bfa6d91159b3";
 		next();
+
+		// let token = req.header("Authorization");
+
+		// if (!token) {
+		// 	token = req.cookies["Authorization"];
+
+		// 	if (!token) {
+		// 		throw new Error("Token missing");
+		// 	}
+		// }
+
+		// const decoded = jwt.verify(token, SECRET_KEY) as JwtPayload;
+		// req.body.id = decoded._id;
+
+		// next();
 	} catch (err) {
 		res.status(401).send("Unauthorized to perform request.");
 	}
